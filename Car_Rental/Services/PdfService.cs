@@ -21,7 +21,7 @@ public class PdfService
         var qrCode = new QRCoder.PngByteQRCode(qrData);
         byte[] qrBytes = qrCode.GetGraphic(20);
 
-        var logoPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images/ryzen-logo.png");
+        var logoPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/ryzen-logo.png");
         byte[] logoBytes = File.Exists(logoPath) ? File.ReadAllBytes(logoPath) : null;
 
         var document = QuestPDF.Fluent.Document.Create(container =>
