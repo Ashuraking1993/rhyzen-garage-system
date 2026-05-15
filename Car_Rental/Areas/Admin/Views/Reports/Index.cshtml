@@ -1,0 +1,80 @@
+﻿<div class="card p-4">
+
+    <h4 class="mb-4">📊 Export Financial Reports</h4>
+
+    <!-- YEARLY -->
+    <form asp-area="Admin"
+          asp-controller="Reports"
+          asp-action="ExportPdf"
+          method="get"
+          class="mb-4">
+
+        <label class="form-label">Select Year</label>
+        <div class="d-flex gap-2">
+            <select name="year" class="form-select w-auto">
+                @for (int y = DateTime.Now.Year; y >= 2020; y--)
+                {
+                    <option value="@y">@y</option>
+                }
+            </select>
+
+            <button type="submit" class="btn btn-danger">
+                Export Yearly PDF
+            </button>
+        </div>
+    </form>
+
+
+    <!-- MONTHLY -->
+    <form asp-area="Admin"
+          asp-controller="Reports"
+          asp-action="ExportMonthlyPdf"
+          method="get"
+          class="mb-4">
+
+        <label class="form-label">Select Month</label>
+
+        <div class="d-flex gap-2">
+
+            <select name="year" class="form-select w-auto">
+                @for (int y = DateTime.Now.Year; y >= 2020; y--)
+                {
+                    <option value="@y">@y</option>
+                }
+            </select>
+
+            <select name="month" class="form-select w-auto">
+                @for (int m = 1; m <= 12; m++)
+                {
+                    <option value="@m">@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(m)</option>
+                }
+            </select>
+
+            <button type="submit" class="btn btn-warning">
+                Export Monthly PDF
+            </button>
+        </div>
+    </form>
+
+
+    <!-- DAILY -->
+    <form asp-area="Admin"
+          asp-controller="Reports"
+          asp-action="ExportDailyPdf"
+          method="get">
+
+        <label class="form-label">Select Date</label>
+
+        <div class="d-flex gap-2">
+            <input type="date"
+                   name="date"
+                   class="form-control w-auto"
+                   value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+
+            <button type="submit" class="btn btn-primary">
+                Export Daily PDF
+            </button>
+        </div>
+    </form>
+
+</div>

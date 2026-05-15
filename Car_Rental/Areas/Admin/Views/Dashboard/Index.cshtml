@@ -1,0 +1,64 @@
+﻿@model Car_Rental.Models.ViewModels.AdminDashboardViewModel
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2 class="mb-4">📊 Dashboard Overview</h2>
+
+<div class="row g-4">
+
+    <div class="row g-4">
+
+        <div class="col-md-3">
+            <div class="card card-admin p-4">
+                <h6>Monthly Revenue</h6>
+                <h2>₱@Model.MonthlyRevenue.ToString("N2")</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card card-admin p-4">
+                <h6>Total Bookings</h6>
+                <h2>@Model.TotalBookings</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card card-admin p-4">
+                <h6>Active Rentals</h6>
+                <h2>@Model.ActiveRentals</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card card-admin p-4">
+                <h6>Total Revenue</h6>
+                <h2>₱@Model.TotalRevenue.ToString("N2")</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card card-admin p-4">
+                <h6>Pending Payments</h6>
+                <h2>@Model.PendingPayments</h2>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+        <div class="card card-admin p-4">
+            <h6>Active Rentals</h6>
+            <h2>18</h2>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card card-admin p-4">
+            <h6>Total Revenue</h6>
+            <h2>₱45,000</h2>
+        </div>
+    </div>
+
+</div>

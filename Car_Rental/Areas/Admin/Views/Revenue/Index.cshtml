@@ -1,0 +1,248 @@
+﻿@model Car_Rental.Models.ViewModels.AdminDashboardViewModel
+
+@{
+    var selectedYear = Context.Request.Query["year"].FirstOrDefault() ?? DateTime.Now.Year.ToString();
+    var selectedMonth = Context.Request.Query["month"].FirstOrDefault() ?? DateTime.Now.Month.ToString();
+}
+
+<h3 class="mb-4">📊 Revenue Summary</h3>
+
+<form method="get" class="row mb-4">
+
+    <div class="col-md-3">
+        <select name="year" class="form-select">
+            @for (int y = DateTime.Now.Year; y >= 2023; y--)
+            {
+                <option value="@y" selected="@(selectedYear == y.ToString())">
+                    @y
+                </option>
+            }
+        </select>
+    </div>
+
+    <div class="col-md-3">
+        <select name="month" class="form-select">
+            @for (int m = 1; m <= 12; m++)
+            {
+                <option value="@m" selected="@(selectedMonth == m.ToString())">
+                    @System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(m)
+                </option>
+            }
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <button class="btn btn-primary">Filter</button>
+    </div>
+
+</form>
+
+<hr />
+
+<div class="card p-4 mb-4 shadow-sm">
+    <h5 class="mb-3">📊 Monthly Revenue</h5>
+
+    <div style="max-width: 950px; margin:auto;">
+        <canvas id="monthlyChart" height="200"></canvas>
+    </div>
+</div>
+
+<div class="card p-4 mb-4 shadow-sm">
+    <h5>📅 Select Date</h5>
+
+    <div id="calendar"></div>
+</div>
+
+<div class="card p-4 shadow-sm">
+    <h5>📊 Daily Financial Summary</h5>
+
+    <div class="row mt-3">
+        <div class="col-md-3">
+            <p>Total Sales</p>
+            <h6 id="totalSales">₱ 0.00</h6>
+        </div>
+        <div class="col-md-3">
+            <p>Total Expenses</p>
+            <h6 id="totalExpenses">₱ 0.00</h6>
+        </div>
+        <div class="col-md-3">
+            <p>Total Deductions</p>
+            <h6 id="totalDeductions">₱ 0.00</h6>
+        </div>
+        <div class="col-md-3">
+            <p>Net Profit</p>
+            <h6 id="netProfit">₱ 0.00</h6>
+        </div>
+    </div>
+</div>
+<hr />
+
+<h5>Add Expense</h5>
+<form id="expenseForm">
+    <input type="text" name="description" placeholder="Description" required />
+    <input type="number" name="amount" step="0.01" required />
+
+    <input type="hidden" name="expenseDate" id="expenseDateHidden" />
+
+    <button type="submit" class="btn btn-danger">
+        Add Expense
+    </button>
+</form>
+
+
+<h5 class="mt-3">Add Deduction</h5>
+<form id="deductionForm">
+    <input type="text" name="reason" placeholder="Reason" required />
+    <input type="number" name="amount" step="0.01" required />
+
+    <input type="hidden" name="deductionDate" id="deductionDateHidden" />
+
+    <button type="submit" class="btn btn-warning">
+        Add Deduction
+    </button>
+</form>
+@section Scripts {
+    <script>
+        let selectedDate = null;
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            // ==========================
+            // DATA FROM MODEL
+            // ==========================
+            var monthlyData = @Html.Raw(
+                            System.Text.Json.JsonSerializer.Serialize(Model.MonthlyRevenueData ?? new List<Car_Rental.Models.ViewModels.MonthlyRevenueDto>())
+                    );
+
+        // ==========================
+        // CHART
+        // ==========================
+        var ctx = document.getElementById("monthlyChart");
+
+            if (ctx && monthlyData.length > 0) {
+
+                var labels = monthlyData.map(x => "Month " + x.Month);
+                var revenue = monthlyData.map(x => x.Revenue);
+                var expenses = monthlyData.map(x => x.Expenses);
+                var deductions = monthlyData.map(x => x.Deductions);
+
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: 'Revenue',
+                                data: revenue,
+                                backgroundColor: 'rgba(34,197,94,0.7)'
+                            },
+                            {
+                                label: 'Expenses',
+                                data: expenses,
+                                backgroundColor: 'rgba(239,68,68,0.7)'
+                            },
+                            {
+                                label: 'Deductions',
+                                data: deductions,
+                                backgroundColor: 'rgba(234,179,8,0.7)'
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false
+                    }
+                });
+            }
+
+            // ==========================
+            // CALENDAR
+            // ==========================
+                   flatpickr("#calendar", {
+            inline: true,
+            dateFormat: "Y-m-d",
+            onChange: function (selectedDates, dateStr) {
+
+                selectedDate = dateStr;
+
+                document.getElementById("expenseDateHidden").value = dateStr;
+                document.getElementById("deductionDateHidden").value = dateStr;
+
+                refreshDailySummary();
+            }
+        });
+
+            // ==========================
+            // EXPENSE FORM
+            // ==========================
+            const expenseForm = document.getElementById("expenseForm");
+
+            if (expenseForm) {
+                expenseForm.addEventListener("submit", function (e) {
+                    e.preventDefault();
+
+                    fetch("/Admin/Revenue/AddExpense", {
+                        method: "POST",
+                        body: new FormData(this)
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success) {
+                            refreshDailySummary(document.getElementById("expenseDateHidden").value);
+                            this.reset();
+                        }
+                    });
+                });
+            }
+
+            // ==========================
+            // DEDUCTION FORM
+            // ==========================
+            const deductionForm = document.getElementById("deductionForm");
+
+            if (deductionForm) {
+                deductionForm.addEventListener("submit", function (e) {
+                    e.preventDefault();
+
+                    fetch("/Admin/Revenue/AddDeduction", {
+                        method: "POST",
+                        body: new FormData(this)
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success) {
+                            refreshDailySummary(document.getElementById("deductionDateHidden").value);
+                            this.reset();
+                        }
+                    });
+                });
+            }
+
+            // ==========================
+            // REFRESH FUNCTION
+            // ==========================
+                 function refreshDailySummary() {
+
+            if (!selectedDate) return;
+
+            fetch(`/Admin/Revenue/GetDailySummary?date=${selectedDate}`)
+                .then(response => response.json())
+                .then(data => {
+
+                    document.getElementById("totalSales").innerHTML =
+                        "₱ " + data.totalSales.toLocaleString();
+
+                    document.getElementById("totalExpenses").innerHTML =
+                        "₱ " + data.totalExpenses.toLocaleString();
+
+                    document.getElementById("totalDeductions").innerHTML =
+                        "₱ " + data.totalDeductions.toLocaleString();
+
+                    document.getElementById("netProfit").innerHTML =
+                        "₱ " + data.netProfit.toLocaleString();
+                });
+        }
+
+        });
+    </script>
+}

@@ -1,0 +1,132 @@
+﻿@model List<Booking>
+
+@{
+    var totalSpent = Model
+        .Where(b => b.PaymentStatus == "Paid")
+        .Sum(b => b.TotalAmount ?? 0);
+
+    var activeBookings = Model
+        .Count(b => b.BookingStatus == "Confirmed");
+
+    var expiredBookings = Model
+        .Count(b => b.PaymentStatus == "Expired");
+}
+
+<h2>My Dashboard</h2>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card bg-success text-white p-3">
+            <h5>Total Spent</h5>
+            <h3>₱@totalSpent.ToString("N2")</h3>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card bg-primary text-white p-3">
+            <h5>Active Rentals</h5>
+            <h3>@activeBookings</h3>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card bg-danger text-white p-3">
+            <h5>Expired Bookings</h5>
+            <h3>@expiredBookings</h3>
+        </div>
+    </div>
+</div>
+
+<h4>Booking History</h4>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Plate No.</th>
+            <th>Unit</th>
+            <th>Dates</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Booking Code</th>
+            <th>Payment</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var b in Model)
+        {
+            <tr>
+                <td>@b.Car?.PlateNumber</td>
+                <td>@b.Car?.Brand @b.Car?.Model</td>
+                <td>@b.StartDate.ToShortDateString() - @b.EndDate.ToShortDateString()</td>
+                <td>₱@b.TotalAmount?.ToString("N2")</td>
+                <td>@b.BookingStatus</td>
+                  <td>
+            <strong class="text-primary">
+                @b.BookingCode
+            </strong>
+                 </td>
+                <td>@b.PaymentStatus</td>
+                <td>
+                    @if (b.BookingStatus == "Pending" && b.PaymentStatus == "Unpaid")
+                    {
+                        var expireTime = b.CreatedAt.AddMinutes(20);
+                        var expireIso = expireTime.ToString("yyyy-MM-ddTHH:mm:ssZ");
+
+                       <a asp-controller="Booking"
+                       asp-action="Payment"
+                       asp-route-id="@b.Id"
+                       class="btn btn-warning btn-sm pay-btn"
+                       data-expire="@expireIso">
+                       Paynow (<span class="btn-timer">--:--</span>)
+                    </a>
+                    }
+                </td>
+                              
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            function updateTimers() {
+
+                var buttons = document.querySelectorAll(".pay-btn");
+
+                buttons.forEach(function (btn) {
+
+                    var expire = btn.getAttribute("data-expire");
+
+                    if (!expire) return;
+
+                    // Parse as UTC
+                    var expireTime = Date.parse(expire);
+                    var now = Date.now();
+
+                    var distance = expireTime - now;
+
+                    var timerSpan = btn.querySelector(".btn-timer");
+
+                    if (distance <= 0) {
+                        btn.outerHTML =
+                            '<span class="badge bg-secondary">Expired</span>';
+                        return;
+                    }
+
+                    var minutes = Math.floor(distance / 60000);
+                    var seconds = Math.floor((distance % 60000) / 1000);
+
+                    timerSpan.textContent =
+                        minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+                });
+            }
+
+            updateTimers();
+            setInterval(updateTimers, 1000);
+        });
+    </script>
+}

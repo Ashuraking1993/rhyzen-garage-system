@@ -1,0 +1,52 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="register-background">
+    <div class="register-overlay">
+        <div class="register-card">
+
+            <h2 class="text-center text-white mb-4 fw-bold">
+                Create Your Account
+            </h2>
+
+            <form method="post">
+
+                <div class="mb-3">
+                    <input asp-for="Input.Email"
+                           class="form-control"
+                           placeholder="Email address" />
+                </div>
+
+                <div class="mb-3">
+                    <input asp-for="Input.Password"
+                           type="password"
+                           class="form-control"
+                           placeholder="Password" />
+                </div>
+
+                <div class="mb-3">
+                    <input asp-for="Input.ConfirmPassword"
+                           type="password"
+                           class="form-control"
+                           placeholder="Confirm Password" />
+                </div>
+
+                <button type="submit"
+                        class="btn btn-warning w-100 fw-bold">
+                    Register
+                </button>
+
+                <div class="text-center mt-3">
+                    <a asp-page="./Login" class="text-warning">
+                        Already have an account?
+                    </a>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>

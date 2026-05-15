@@ -1,0 +1,287 @@
+﻿@using Car_Rental.Models
+@model Booking
+
+@{
+    var car = ViewBag.Car as Car;
+    var mainImage = car?.CarImages?.FirstOrDefault(i => i.IsMain)
+                    ?? car?.CarImages?.FirstOrDefault();
+}
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<div class="container py-5">
+
+    <div class="vehicle-header-modern mb-4">
+        <h1>
+            <span class="brand">@car.Brand</span>
+            <span class="model">@car.Model</span>
+        </h1>
+    </div>
+    <div class="row g-5">
+
+        <!-- LEFT SIDE: CAR DETAILS -->
+        <div class="col-lg-7">
+
+            <!-- MAIN IMAGE -->
+            <div class="image-container">
+                <div class="image-slider" id="imageSlider">
+                    <img id="mainImage"
+                         src="@(mainImage != null ? mainImage.ImagePath : Url.Content("~/Images/no-image.jpg"))"
+                         class="slider-image" />
+                </div>
+            </div>
+
+            <!-- THUMBNAILS -->
+            <div class="d-flex gap-2 mb-4">
+                @foreach (var img in car.CarImages ?? new List<CarImage>())
+                {
+                    <img src="@img.ImagePath"
+                         class="rounded border"
+                         style="width:75px; height:75px; object-fit:cover; cursor:pointer; transition:0.2s;"
+                         onmouseover="this.style.transform='scale(1.05)'"
+                         onmouseout="this.style.transform='scale(1)'"
+                         onclick="changeImage('@img.ImagePath')" />
+                }
+            </div>
+
+            <!-- PRICE SECTION -->
+            <div class="mb-4">
+                <h4 class="fw-bold text-dark">₱@car.DailyRate <span class="fs-6 text-muted">/ day</span></h4>
+                <div class="text-muted small">
+                    <div>🚘 @car.TransmissionType</div>
+                    <div>📅 @car.Year</div>
+                </div>
+            </div>
+
+            <!-- FEATURES -->
+            @if (!string.IsNullOrEmpty(car.Features))
+            {
+                <div class="mb-4">
+                    <h6 class="fw-bold text-uppercase text-secondary">Car Features</h6>
+                    <ul class="small text-muted">
+                        @foreach (var feature in car.Features.Split('\n'))
+                        {
+                            <li>@feature</li>
+                        }
+                    </ul>
+                </div>
+            }
+
+            <!-- INTERIOR -->
+            @if (!string.IsNullOrEmpty(car.InteriorDetails))
+            {
+                <div class="mb-4">
+                    <h6 class="fw-bold text-uppercase text-secondary">Interior Details</h6>
+                    <ul class="small text-muted">
+                        @foreach (var item in car.InteriorDetails.Split('\n'))
+                        {
+                            <li>@item</li>
+                        }
+                    </ul>
+                </div>
+            }
+
+            <div class="border-top pt-3">
+                <h6 class="fw-bold">Total Cost</h6>
+                <h3 class="text-success fw-bold">₱<span id="totalAmount">0</span></h3>
+            </div>
+
+        </div>
+
+        <!-- RIGHT SIDE: BOOKING FORM -->
+        <div class="col-lg-5">
+
+            <div class="card shadow-sm border-0 p-4 rounded-4">
+
+                <h5 class="fw-bold mb-4">Reserve This Vehicle</h5>
+
+                <form asp-action="Create" method="post">
+
+                    <input type="hidden" asp-for="CarId" />
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold">Full Name</label>
+                        <input asp-for="CustomerName" class="form-control form-control-sm rounded-3" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold">Email</label>
+                        <input asp-for="CustomerEmail" type="email"
+                               class="form-control form-control-sm rounded-3" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold">Phone</label>
+                        <input asp-for="CustomerPhone"
+                               class="form-control form-control-sm rounded-3" required />
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <label class="form-label small fw-semibold">Start Date</label>
+                            <input asp-for="StartDate" type="date"
+                                   class="form-control form-control-sm rounded-3"
+                                   id="startDate" required />
+                        </div>
+
+                        <div class="col-6 mb-3">
+                            <label class="form-label small fw-semibold">End Date</label>
+                            <input asp-for="EndDate" type="date"
+                                   class="form-control form-control-sm rounded-3"
+                                   id="endDate" required />
+                        </div>
+                    </div>
+
+                    <button type="submit"
+                            class="btn btn-dark w-100 rounded-3 py-2 fw-semibold">
+                        Confirm Booking
+                    </button>
+
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+   
+
+    
+</div>
+
+<style>
+    .image-container {
+        position: relative;
+        width: 100%;
+        height: 400px;
+        overflow: hidden;
+        border-radius: 12px;
+    }
+
+    .image-slider {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+    .slider-image {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease-in-out;
+    }
+
+    .vehicle-header {
+        border-left: 5px solid #ffb400;
+        padding-left: 15px;
+    }
+
+    .vehicle-title {
+        font-size: 38px;
+        font-weight: 800;
+        letter-spacing: 1px;
+        margin-bottom: 5px;
+    }
+
+    .vehicle-model {
+        color: #ffb400;
+        font-weight: 900;
+    }
+
+    .vehicle-sub {
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        color: #888;
+    }
+
+    .vehicle-luxury h1 {
+        font-size: 40px;
+        font-weight: 800;
+        background: linear-gradient(90deg, #ffffff, #ffb400);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: 1px;
+    }
+
+    .vehicle-header-modern h1 {
+        font-size: 42px;
+        font-weight: 900;
+        letter-spacing: 1px;
+        margin-bottom: 10px;
+    }
+
+    .vehicle-header-modern .brand {
+        color: #222;
+    }
+
+    .vehicle-header-modern .model {
+        color: #ffb400;
+        position: relative;
+    }
+
+        .vehicle-header-modern .model::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #ffb400;
+            border-radius: 5px;
+        }
+</style>
+
+<script>
+    const dailyRate = @car.DailyRate;
+
+    const startInput = document.getElementById("startDate");
+    const endInput = document.getElementById("endDate");
+    const totalDisplay = document.getElementById("totalAmount");
+
+    function calculateTotal() {
+        const start = new Date(startInput.value);
+        const end = new Date(endInput.value);
+
+        if (!startInput.value || !endInput.value) {
+            totalDisplay.innerText = 0;
+            return;
+        }
+
+        const diffTime = end - start;
+        const diffDays = diffTime / (1000 * 60 * 60 * 24);
+
+        if (diffDays > 0) {
+            totalDisplay.innerText =
+                (diffDays * dailyRate).toLocaleString();
+        } else {
+            totalDisplay.innerText = 0;
+        }
+    }
+
+        function changeImage(newSrc) {
+        const slider = document.getElementById("imageSlider");
+        const currentImage = document.getElementById("mainImage");
+
+        // Create new image
+        const newImage = document.createElement("img");
+        newImage.src = newSrc;
+        newImage.className = "slider-image";
+        newImage.style.transform = "translateX(100%)";
+
+        slider.appendChild(newImage);
+
+        // Force reflow
+        newImage.offsetHeight;
+
+        // Animate
+        currentImage.style.transform = "translateX(-100%)";
+        newImage.style.transform = "translateX(0)";
+
+        // After animation remove old image
+        setTimeout(() => {
+            slider.removeChild(currentImage);
+            newImage.id = "mainImage";
+        }, 500);
+    }
+</script>

@@ -1,0 +1,345 @@
+/* ============================= */
+/* GLOBAL RESET */
+/* ============================= */
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Remove container spacing for hero full screen */
+.container {
+    max-width: 100% !important;
+    padding: 0 !important;
+}
+
+/* ============================= */
+/* NAVBAR */
+/* ============================= */
+
+.navbar,
+header {
+    background-color: #000 !important;
+    padding: 5px 20px;
+}
+
+    .navbar a,
+    header a,
+    .nav-link {
+        color: #fff !important;
+    }
+
+ .navbar a:hover,
+ .nav-link:hover {
+    color: #ffcc00 !important;
+
+    }
+
+.navbar-brand img {
+    transition: transform 0.5s ease;
+    transform-style: preserve-3d;
+}
+
+.navbar-brand img:hover {
+        transform: perspective(600px) rotateY(12deg) scale(1.05);
+    }
+
+/* ============================= */
+/* HERO SECTION */
+/* ============================= */
+
+.silkroad-home.hero-section {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Full screen */
+    background: url('/images/hero1.png') no-repeat center center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Dark cinematic overlay */
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(255,140,0,0.15) 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.95) 100%);
+    z-index: 1;
+}
+
+/* ============================= */
+/* HERO CONTENT */
+/* ============================= */
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+}
+
+    /* Silkroad Gold Title */
+    .hero-content h1 {
+        font-size: clamp(80px, 9vw, 140px);
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 6px;
+        color: transparent !important; /* FORCE remove fill */
+        -webkit-text-fill-color: transparent; /* Chrome fix */
+        -webkit-text-stroke: 3px #ff8c00; /* Orange outline */
+
+        text-shadow: none !important; /* Remove glow */
+        background: none !important; /* Remove gradient */
+    }
+
+    .hero-content p {
+        font-size: 1.3rem;
+        margin: 20px 0 30px 0;
+        color: #ffd27f;
+        text-shadow: 0 0 10px rgba(255, 140, 0, 0.5);
+    }
+    /* ============================= */
+    /* BUTTON STYLE */
+    /* ============================= */
+
+    .hero-content .btn-warning {
+        background: linear-gradient(45deg, #ffcc00, #ff6a00);
+        border: 2px solid #ffd700;
+        padding: 14px 40px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        border-radius: 10px;
+        color: #000;
+        box-shadow: 0 0 10px #ffae00, 0 0 20px #ff8c00;
+        transition: all 0.3s ease;
+    }
+
+        .hero-content .btn-warning:hover {
+            box-shadow: 0 0 20px #ffd700, 0 0 40px #ff4500, 0 0 60px #ff0000;
+            transform: scale(1.05);
+        }
+
+/* ============================= */
+/* FOOTER */
+/* ============================= */
+
+footer {
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+}
+
+/* ============================= */
+/* RESPONSIVE */
+/* ============================= */
+
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+}
+/* ============================= */
+/* NAVBAR PREMIUM ENHANCEMENT   */
+/* ============================= */
+
+/* Navbar container */
+.navbar,
+header {
+    background: #000 !important;
+    border-bottom: 2px solid #ffae00;
+    box-shadow: 0 2px 15px rgba(255, 174, 0, 0.3);
+}
+
+    /* Brand (RENTAL text) */
+    .navbar-brand,
+    header .navbar-brand,
+    header strong {
+        font-weight: 800;
+        letter-spacing: 1px;
+        color: #ffffff !important;
+        font-size: 18px;
+    }
+
+    /* Nav links */
+    .navbar .nav-link,
+    header .nav-link {
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        color: #ffffff !important;
+        padding: 8px 16px;
+        border: 1px solid transparent;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+    }
+
+        /* Hover effect */
+        .navbar .nav-link:hover,
+        header .nav-link:hover {
+            border: 1px solid #ffae00;
+            color: #ffae00 !important;
+            background: rgba(255, 174, 0, 0.08);
+        }
+
+    /* Login button */
+/* ============================= */
+/* UNIFORM NAVBAR BUTTON STYLE  */
+/* ============================= */
+
+:root {
+    --orange-main: #ff8800;
+}
+
+/* Target ALL navbar links and buttons */
+.navbar .nav-link,
+.navbar .btn {
+    display: inline-block;
+    padding: 6px 18px;
+    margin-left: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    color: #fff !important;
+    background: transparent !important;
+    border: 2px solid var(--orange-main) !important;
+    border-radius: 8px !important;
+    transition: all 0.3s ease;
+}
+
+    /* Hover effect */
+    .navbar .nav-link:hover,
+    .navbar .btn:hover {
+        background: var(--orange-main) !important;
+        color: #000 !important;
+        box-shadow: 0 0 10px rgba(255,136,0,0.6);
+    }
+
+.car-card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+    transition: 0.3s ease;
+}
+
+    .car-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+    }
+
+.image-container {
+    position: relative;
+}
+
+..car-card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+    transition: 0.3s ease;
+}
+
+.car-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+}
+
+.image-container {
+    position: relative;
+}
+
+.car-img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+}
+
+.status-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    color: white;
+}
+
+/* Full background */
+.login-background {
+    background: url('/images/cars/lamborghiniavendtador.jpg') no-repeat center center;
+    background-size: cover;
+    height: 100vh;
+}
+
+/* Dark overlay */
+.overlay {
+    background: rgba(0, 0, 0, 0.7);
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Glass card */
+.login-card {
+    width: 400px;
+    padding: 40px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Register Page Background */
+.register-background {
+    background: url('/images/bugattiveyron.png') no-repeat center center;
+    background-size: cover;
+    height: 100vh;
+}
+
+/* Dark overlay */
+.register-overlay {
+    background: rgba(0, 0, 0, 0.75);
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Glass card */
+.register-card {
+    width: 420px;
+    padding: 40px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.7);
+}
+
+.brand-logos img {
+    height: 70px;
+    width:150px;
+    transition: all 0.4s ease;
+    filter: grayscale(100%) brightness(1.8) contrast(1.2);
+    opacity: 0.8;
+}
+
+    /* Hover effect */
+    .brand-logos img:hover {
+        filter: grayscale(0%) brightness(1.2) drop-shadow(0 0 8px #ccc);
+        transform: scale(1.1);
+        opacity: 1;
+    }

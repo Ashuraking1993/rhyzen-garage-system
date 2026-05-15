@@ -1,0 +1,283 @@
+﻿@model List<Car_Rental.Models.Car>
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Cars Location";
+}
+
+<div class="row">
+
+    <!-- LEFT VEHICLE PANEL -->
+    <div class="col-md-3">
+        <div class="vehicle-panel p-3">
+            <h5 class="mb-3">🚗 Vehicles</h5>
+            <hr />
+
+            @foreach (var car in Model)
+            {
+                var latestLocation = car.CarLocations
+                .OrderByDescending(l => l.UpdatedAt)
+                .FirstOrDefault();
+
+                <div class="vehicle-card"
+                     onclick="focusCar('@car.PlateNumber')">
+
+                    <strong>@car.PlateNumber</strong><br />
+                    <small>@car.Brand @car.Model</small><br />
+
+                    @if (car.Status == "Booked")
+                    {
+                        if (latestLocation != null)
+                        {
+                            <small class="text-success">
+                                Live Tracking
+                            </small>
+                        }
+                        else
+                        {
+                            <small class="text-danger">
+                                No Signal
+                            </small>
+                        }
+                    }
+                    else
+                    {
+                        <small class="text-info">
+                            Parked at Garage
+                        </small>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- RIGHT MAP PANEL -->
+    <div class="col-md-9">
+        <div id="map"></div>
+    </div>
+
+</div>
+
+<style>
+
+    .vehicle-panel {
+        background: #1f2937;
+        color: white;
+        height: 650px;
+        overflow-y: auto;
+        border-radius: 15px;
+    }
+
+    .vehicle-card {
+        background: #374151;
+        padding: 10px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+        .vehicle-card:hover {
+            background: #4b5563;
+            transform: scale(1.02);
+        }
+
+    #map {
+        height: 650px;
+        width: 100%;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    }
+
+</style>
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            var map = L.map('map').setView([14.5995, 120.9842], 12);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+
+            var markers = {};
+            var routes = {};
+
+            async function loadCars() {
+
+                const response = await fetch('/Admin/CarsLocation/GetLiveLocations');
+                const cars = await response.json();
+
+                        function getMarkerIcon(status) {
+
+            let color = "blue";
+
+            if (status === "Booked") color = "red";
+            else if (status === "Available") color = "green";
+            else if (status === "Reserved") color = "orange";
+
+            return new L.Icon({
+                iconUrl: `https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-${color}.png`,
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
+            });
+        } 
+                window.focusCar = function (plate) {
+
+            const marker = markers[plate];
+
+            if (!marker) return;
+
+            // Zoom to marker
+            map.setView(marker.getLatLng(), 16);
+
+            // Open popup
+            marker.openPopup();
+
+            // Remove previous highlight
+            document.querySelectorAll("tr[id^='row-']").forEach(row => {
+                row.classList.remove("table-primary");
+            });
+
+            // Highlight clicked row
+            const selectedRow = document.getElementById("row-" + plate);
+            if (selectedRow) {
+                selectedRow.classList.add("table-primary");
+            }
+        };
+
+                function getRouteColor(status) {
+            if (status === "Booked") return "red";
+            if (status === "Available") return "green";
+            if (status === "Reserved") return "orange";
+            return "blue";
+        }
+                cars.forEach(car => {
+
+                    if (!car.lat || !car.lng) return;
+
+                    var position = [car.lat, car.lng];
+
+                    // Last seen calculation
+                    var lastSeen = "";
+                    if (car.updatedAt) {
+                        const updated = new Date(car.updatedAt);
+                        const now = new Date();
+                        const diffMin = Math.floor((now - updated) / 60000);
+                        lastSeen = diffMin + " min ago";
+                    }
+
+                    if (markers[car.plate]) {
+
+                        // Update existing marker
+                        markers[car.plate].setLatLng(position);
+                        markers[car.plate].setPopupContent(
+                            `<b>${car.plate}</b><br/>
+                             ${car.brand} ${car.model}<br/>
+                             Driver: ${car.driver ?? "N/A"}<br/>
+                             Status: ${car.status}<br/>
+                             Last Seen: ${lastSeen}`
+                        );
+
+                        // Add route trail
+                        routes[car.plate].addLatLng(position);
+
+                    } else {
+
+                        // Marker color by status
+                       
+
+                                var marker = L.marker(position, {
+                                icon: getMarkerIcon(car.status)
+                                    }).addTo(map)
+                            .bindPopup(
+                                `<b>${car.plate}</b><br/>
+                                 ${car.brand} ${car.model}<br/>
+                                 Driver: ${car.driver ?? "N/A"}<br/>
+                                 Status: ${car.status}<br/>
+                                 Last Seen: ${lastSeen}`
+                            );
+
+                        markers[car.plate] = marker;
+
+                        // Create route polyline
+                              routes[car.plate] = L.polyline([position], {
+                            color: getRouteColor(car.status),
+                            weight: 4
+                        }).addTo(map);
+                    }
+
+                });
+            }
+
+            loadCars();
+
+            // 🔄 AUTO REFRESH EVERY 10 SECONDS
+            setInterval(loadCars, 10000);
+
+        });
+    </script>
+}
+
+            <div class="row mt-4">
+    <div class="col-12">
+        <div class="card shadow-sm p-3">
+            <h5>📊 Fleet Information</h5>
+            <hr />
+            <table class="table table-striped">
+               <thead>
+             <tr>
+                <th>Plate</th>
+                <th>Brand</th>
+                <th>Status</th>
+                <th>Driver</th>
+                <th>Speed (km/h)</th>
+                <th>Current Location</th>
+                <th>Last Update</th>
+              </tr>
+            </thead>
+                <tbody>
+@foreach (var car in Model)
+{
+                    var latestLocation = car.CarLocations
+                        .OrderByDescending(l => l.UpdatedAt)
+                        .FirstOrDefault();
+
+                        <tr id="row-@car.PlateNumber"
+                            style="cursor:pointer;"
+                            onclick="focusCar('@car.PlateNumber')">
+
+                        <td>@car.PlateNumber</td>
+                        <td>@car.Brand @car.Model</td>
+                        <td>@car.Status</td>
+
+                        <td>
+                            @(latestLocation?.DriverName ?? "—")
+                        </td>
+
+                        <td>
+                            @(latestLocation?.Speed != null 
+                                ? latestLocation.Speed + " km/h" 
+                                : "—")
+                        </td>
+
+                        <td>
+                            @(latestLocation != null
+                                ? $"{latestLocation.Latitude}, {latestLocation.Longitude}"
+                                : "Garage")
+                        </td>
+
+                        <td>
+                            @(latestLocation != null
+                                ? latestLocation.UpdatedAt.ToString("g")
+                                : "No Data")
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

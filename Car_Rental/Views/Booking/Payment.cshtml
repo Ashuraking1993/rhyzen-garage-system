@@ -1,0 +1,22 @@
+﻿@model Booking
+
+<div class="container mt-5">
+    <h2>GCash Payment</h2>
+
+    <div class="card p-4 shadow">
+        <h4>@Model.Car.Brand @Model.Car.Model</h4>
+        <p>Total Amount: <strong>₱@Model.TotalAmount</strong></p>
+
+        <hr />
+
+        <p>Scan GCash QR Code to Pay</p>
+        <img src="/images/gcash-qr.png" width="200" />
+
+        <form asp-action="ConfirmPayment" method="post">
+            <input type="hidden" name="id" value="@Model.Id" />
+            <button class="btn btn-success mt-3">
+                I Have Paid
+            </button>
+        </form>
+    </div>
+</div>

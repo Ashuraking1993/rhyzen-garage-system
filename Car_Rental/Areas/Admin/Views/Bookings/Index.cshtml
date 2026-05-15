@@ -1,0 +1,67 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card shadow-sm p-4">
+    <h4>🔥 Occupancy Heatmap</h4>
+    <div id="calendar"></div>
+</div>
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', async function () {
+
+            var calendarEl = document.getElementById('calendar');
+
+            const response = await fetch('/Admin/Bookings/GetOccupancyHeatmap');
+            const data = await response.json();
+
+            const events = data.map(item => {
+
+                let color = "green";
+
+                if (item.occupancy >= 80)
+                    color = "red";
+                else if (item.occupancy >= 40)
+                    color = "orange";
+
+                return {
+                    title: Math.round(item.occupancy) + "% Occupied",
+                    start: item.date,
+                    allDay: true,
+                    backgroundColor: color,
+                    borderColor: color,
+
+                    // 🔥 PASS EXTRA DATA
+                    extendedProps: {
+                        occupancy: item.occupancy,
+                        totalBookings: item.totalBookings
+                    }
+                };
+            });
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                height: 700,
+                events: events,
+
+                // 🔥 CUSTOM RENDER INSIDE CELL
+                eventContent: function (arg) {
+
+                    const percent = Math.round(arg.event.extendedProps.occupancy);
+                    const count = arg.event.extendedProps.totalBookings;
+
+                    return {
+                        html: `
+                            <div style="font-size:12px;">
+                                <div><strong>${percent}% Occupied</strong></div>
+                                <div>${count} Bookings</div>
+                            </div>
+                        `
+                    };
+                }
+            });
+
+            calendar.render();
+        });
+    </script>
+}

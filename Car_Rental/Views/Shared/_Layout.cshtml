@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Car Rental</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- 🔥 BLACK NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black shadow-sm">
+        <div class="container-fluid px-4">
+
+            <!-- LEFT SIDE LOGO -->
+            <a class="navbar-brand"
+               asp-controller="Home"
+               asp-action="Index">
+                <img src="~/images/logo1.png"
+                     alt="Logo"
+                     style="height:80px; width:250px;" />
+            </a>
+
+            <!-- RIGHT SIDE NAV -->
+            <div class="d-flex align-items-center gap-3 ms-auto">
+
+
+                <span class="text-white small">
+                        Hello, <strong>@User.Identity.Name</strong>
+                    </span>
+
+
+                <a asp-area=""
+                   asp-controller="Home"
+                   asp-action="Index"
+                   class="btn btn-outline-warning px-4">
+                    Home
+                </a>
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <!-- 👤 Logged User -->
+                    
+                    <a asp-controller="Booking" asp-action="Dashboard" class="btn btn-outline-warning">
+                        My Bookings
+                    </a>
+
+                    <form asp-area="Identity"
+                          asp-page="/Account/Logout"
+                          method="post"
+                          class="d-inline">
+                        <button type="submit"
+                                class="btn btn-outline-light px-3">
+                            Logout
+                        </button>
+                    </form>
+                }
+                else
+                {
+                    <a class="btn btn-outline-light px-4"
+                       asp-area="Identity"
+                       asp-page="/Account/Login">
+                        Login
+                    </a>
+
+                    <a class="btn btn-warning px-4"
+                       asp-area="Identity"
+                       asp-page="/Account/Register">
+                        Register
+                    </a>
+                }
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-fill">
+        
+            @RenderBody()
+        
+    </main>
+
+    <!-- 🔥 STICKY FOOTER -->
+    <footer class="bg-black text-white pt-4 pb-3 mt-auto border-top border-warning">
+        <div class="container text-center">
+
+            <h5 class="mb-3">Our Premium Brands</h5>
+
+            <div class="brand-logos d-flex justify-content-center align-items-center flex-wrap gap-4">
+
+                <img src="~/images/logo/ferrari.png" />
+                <img src="~/images/logo/ford.png" />
+                <img src="~/images/logo/hummer.png" />
+                <img src="~/images/logo/hyundai.png" />
+                <img src="~/images/logo/lamborghini.png" />
+                <img src="~/images/logo/toyota.png" />
+                <img src="~/images/logo/honda.png" />
+                <img src="~/images/logo/lexus.png" />
+                <img src="~/images/logo/mitsubishi.png" />
+            </div>
+
+            <p class="mt-4 mb-0 small text-secondary">
+                © 2026 Ryzen Garage. All rights reserved.
+            </p>
+
+        </div>
+    </footer>
+
+     @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

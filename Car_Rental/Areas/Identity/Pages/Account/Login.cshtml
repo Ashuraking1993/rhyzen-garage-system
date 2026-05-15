@@ -1,0 +1,43 @@
+﻿@page
+@model LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="login-background">
+    <div class="overlay">
+        <div class="login-card">
+
+            <h2 class="text-center text-white mb-4 fw-bold">Welcome Back</h2>
+
+            <form method="post">
+                <div class="mb-3">
+                    <input asp-for="Input.Email" class="form-control"
+                           placeholder="Email address" />
+                </div>
+
+                <div class="mb-3">
+                    <input asp-for="Input.Password" type="password"
+                           class="form-control"
+                           placeholder="Password" />
+                </div>
+
+                <div class="form-check mb-3 text-white">
+                    <input asp-for="Input.RememberMe" class="form-check-input" />
+                    <label class="form-check-label">Remember me</label>
+                </div>
+
+                <button type="submit" class="btn btn-warning w-100 fw-bold">
+                    Log In
+                </button>
+
+                <div class="text-center mt-3">
+                    <a asp-page="./Register" class="text-warning">
+                        Create Account
+                    </a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

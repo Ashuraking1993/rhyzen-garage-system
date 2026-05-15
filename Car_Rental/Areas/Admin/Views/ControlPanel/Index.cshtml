@@ -1,0 +1,74 @@
+﻿@model List<Car>
+
+<h3>🚘 Car Media Management</h3>
+
+@foreach (var car in Model)
+{
+    <div class="card mb-4 p-3 shadow-sm">
+
+        <h5>@car.Brand @car.Model (@car.PlateNumber)</h5>
+
+        <!-- MAIN IMAGE -->
+        <div class="mb-3">
+            @{
+                var mainImage = car.CarImages?.FirstOrDefault(i => i.IsMain);
+            }
+
+            @if (mainImage != null)
+            {
+                <img src="@mainImage.ImagePath" width="300" />
+            }
+        </div>
+
+        <!-- GALLERY -->
+        <!-- GALLERY WITH SET MAIN OPTION -->
+        <div class="row">
+            @foreach (var img in car.CarImages ?? new List<CarImage>())
+            {
+                <div class="col-md-3 mb-3 text-center">
+
+                    <img src="@img.ImagePath"
+                         class="img-fluid rounded border @(img.IsMain ? "border-success border-3" : "")"
+                         style="height:120px; object-fit:cover;" />
+
+                    @if (!img.IsMain)
+                    {
+                        <form asp-action="SetMainImage" method="post">
+                            <input type="hidden" name="imageId" value="@img.Id" />
+                            <button class="btn btn-sm btn-outline-primary mt-2">
+                                Set as Main
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <div class="text-success mt-2 fw-bold">
+                            ✅ Main Image
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+
+        <!-- UPLOAD -->
+        <form asp-action="UploadImages" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="carId" value="@car.CarId" />
+            <input type="file" name="images" multiple />
+            <button class="btn btn-primary btn-sm">Upload</button>
+        </form>
+
+        <!-- FEATURES -->
+        <form asp-action="UpdateFeatures" method="post" class="mt-3">
+            <input type="hidden" name="carId" value="@car.CarId" />
+
+            <label>Features</label>
+            <textarea name="features" class="form-control">@car.Features</textarea>
+
+            <label class="mt-2">Interior Details</label>
+            <textarea name="interior" class="form-control">@car.InteriorDetails</textarea>
+
+            <button class="btn btn-success mt-2 btn-sm">Save Details</button>
+        </form>
+
+    </div>
+}

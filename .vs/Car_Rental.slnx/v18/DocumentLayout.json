@@ -1,0 +1,194 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Projects_C#\\Car_Rental\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{249484B9-8931-40A6-43D8-9B3B9A36A80E}|Car_Rental\\Car_Rental.csproj|d:\\projects_c#\\car_rental\\car_rental\\controllers\\carsconrtroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{249484B9-8931-40A6-43D8-9B3B9A36A80E}|Car_Rental\\Car_Rental.csproj|solutionrelative:car_rental\\controllers\\carsconrtroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{249484B9-8931-40A6-43D8-9B3B9A36A80E}|Car_Rental\\Car_Rental.csproj|d:\\projects_c#\\car_rental\\car_rental\\controllers\\bookingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{249484B9-8931-40A6-43D8-9B3B9A36A80E}|Car_Rental\\Car_Rental.csproj|solutionrelative:car_rental\\controllers\\bookingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{249484B9-8931-40A6-43D8-9B3B9A36A80E}|Car_Rental\\Car_Rental.csproj|d:\\projects_c#\\car_rental\\car_rental\\areas\\admin\\controllers\\reportscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{249484B9-8931-40A6-43D8-9B3B9A36A80E}|Car_Rental\\Car_Rental.csproj|solutionrelative:car_rental\\areas\\admin\\controllers\\reportscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{249484B9-8931-40A6-43D8-9B3B9A36A80E}|Car_Rental\\Car_Rental.csproj|d:\\projects_c#\\car_rental\\car_rental\\areas\\admin\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{249484B9-8931-40A6-43D8-9B3B9A36A80E}|Car_Rental\\Car_Rental.csproj|solutionrelative:car_rental\\areas\\admin\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{249484B9-8931-40A6-43D8-9B3B9A36A80E}|Car_Rental\\Car_Rental.csproj|d:\\projects_c#\\car_rental\\car_rental\\areas\\admin\\controllers\\bookingsearchcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{249484B9-8931-40A6-43D8-9B3B9A36A80E}|Car_Rental\\Car_Rental.csproj|solutionrelative:car_rental\\areas\\admin\\controllers\\bookingsearchcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{249484B9-8931-40A6-43D8-9B3B9A36A80E}|Car_Rental\\Car_Rental.csproj|d:\\projects_c#\\car_rental\\car_rental\\services\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{249484B9-8931-40A6-43D8-9B3B9A36A80E}|Car_Rental\\Car_Rental.csproj|solutionrelative:car_rental\\services\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{249484B9-8931-40A6-43D8-9B3B9A36A80E}|Car_Rental\\Car_Rental.csproj|d:\\projects_c#\\car_rental\\car_rental\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{249484B9-8931-40A6-43D8-9B3B9A36A80E}|Car_Rental\\Car_Rental.csproj|solutionrelative:car_rental\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{249484B9-8931-40A6-43D8-9B3B9A36A80E}|Car_Rental\\Car_Rental.csproj|d:\\projects_c#\\car_rental\\car_rental\\models\\booking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{249484B9-8931-40A6-43D8-9B3B9A36A80E}|Car_Rental\\Car_Rental.csproj|solutionrelative:car_rental\\models\\booking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{249484B9-8931-40A6-43D8-9B3B9A36A80E}|Car_Rental\\Car_Rental.csproj|d:\\projects_c#\\car_rental\\car_rental\\areas\\admin\\views\\shared\\_adminlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{249484B9-8931-40A6-43D8-9B3B9A36A80E}|Car_Rental\\Car_Rental.csproj|solutionrelative:car_rental\\areas\\admin\\views\\shared\\_adminlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{249484B9-8931-40A6-43D8-9B3B9A36A80E}|Car_Rental\\Car_Rental.csproj|d:\\projects_c#\\car_rental\\car_rental\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{249484B9-8931-40A6-43D8-9B3B9A36A80E}|Car_Rental\\Car_Rental.csproj|solutionrelative:car_rental\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ReportsController.cs",
+              "DocumentMoniker": "D:\\Projects_C#\\Car_Rental\\Car_Rental\\Areas\\Admin\\Controllers\\ReportsController.cs",
+              "RelativeDocumentMoniker": "Car_Rental\\Areas\\Admin\\Controllers\\ReportsController.cs",
+              "ToolTip": "D:\\Projects_C#\\Car_Rental\\Car_Rental\\Areas\\Admin\\Controllers\\ReportsController.cs",
+              "RelativeToolTip": "Car_Rental\\Areas\\Admin\\Controllers\\ReportsController.cs",
+              "ViewState": "AgIAAGkBAAAAAAAAAAAwwDABAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-15T03:00:18.539Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DashboardController.cs",
+              "DocumentMoniker": "D:\\Projects_C#\\Car_Rental\\Car_Rental\\Areas\\Admin\\Controllers\\DashboardController.cs",
+              "RelativeDocumentMoniker": "Car_Rental\\Areas\\Admin\\Controllers\\DashboardController.cs",
+              "ToolTip": "D:\\Projects_C#\\Car_Rental\\Car_Rental\\Areas\\Admin\\Controllers\\DashboardController.cs",
+              "RelativeToolTip": "Car_Rental\\Areas\\Admin\\Controllers\\DashboardController.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAYwBoAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-15T03:00:08.175Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CarsConrtroller.cs",
+              "DocumentMoniker": "D:\\Projects_C#\\Car_Rental\\Car_Rental\\Controllers\\CarsConrtroller.cs",
+              "RelativeDocumentMoniker": "Car_Rental\\Controllers\\CarsConrtroller.cs",
+              "ToolTip": "D:\\Projects_C#\\Car_Rental\\Car_Rental\\Controllers\\CarsConrtroller.cs",
+              "RelativeToolTip": "Car_Rental\\Controllers\\CarsConrtroller.cs",
+              "ViewState": "AgIAAGIAAAAAAAAAAAAswHoAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-15T02:59:20.411Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "D:\\Projects_C#\\Car_Rental\\Car_Rental\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Car_Rental\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "D:\\Projects_C#\\Car_Rental\\Car_Rental\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Car_Rental\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAABMAAAAAAAAAAAAAAB8AAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-02-28T19:11:20.794Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "_AdminLayout.cshtml",
+              "DocumentMoniker": "D:\\Projects_C#\\Car_Rental\\Car_Rental\\Areas\\Admin\\Views\\Shared\\_AdminLayout.cshtml",
+              "RelativeDocumentMoniker": "Car_Rental\\Areas\\Admin\\Views\\Shared\\_AdminLayout.cshtml",
+              "ToolTip": "D:\\Projects_C#\\Car_Rental\\Car_Rental\\Areas\\Admin\\Views\\Shared\\_AdminLayout.cshtml",
+              "RelativeToolTip": "Car_Rental\\Areas\\Admin\\Views\\Shared\\_AdminLayout.cshtml",
+              "ViewState": "AgIAAFUAAAAAAAAAAAAAAGoAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-02-28T18:54:49.866Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "BookingSearchController.cs",
+              "DocumentMoniker": "D:\\Projects_C#\\Car_Rental\\Car_Rental\\Areas\\Admin\\Controllers\\BookingSearchController.cs",
+              "RelativeDocumentMoniker": "Car_Rental\\Areas\\Admin\\Controllers\\BookingSearchController.cs",
+              "ToolTip": "D:\\Projects_C#\\Car_Rental\\Car_Rental\\Areas\\Admin\\Controllers\\BookingSearchController.cs",
+              "RelativeToolTip": "Car_Rental\\Areas\\Admin\\Controllers\\BookingSearchController.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAzwCQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-28T18:53:45.053Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Booking.cs",
+              "DocumentMoniker": "D:\\Projects_C#\\Car_Rental\\Car_Rental\\Models\\Booking.cs",
+              "RelativeDocumentMoniker": "Car_Rental\\Models\\Booking.cs",
+              "ToolTip": "D:\\Projects_C#\\Car_Rental\\Car_Rental\\Models\\Booking.cs",
+              "RelativeToolTip": "Car_Rental\\Models\\Booking.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-28T16:36:56.233Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Projects_C#\\Car_Rental\\Car_Rental\\Program.cs",
+              "RelativeDocumentMoniker": "Car_Rental\\Program.cs",
+              "ToolTip": "D:\\Projects_C#\\Car_Rental\\Car_Rental\\Program.cs",
+              "RelativeToolTip": "Car_Rental\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFcAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-27T18:58:44.438Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "EmailService.cs",
+              "DocumentMoniker": "D:\\Projects_C#\\Car_Rental\\Car_Rental\\Services\\EmailService.cs",
+              "RelativeDocumentMoniker": "Car_Rental\\Services\\EmailService.cs",
+              "ToolTip": "D:\\Projects_C#\\Car_Rental\\Car_Rental\\Services\\EmailService.cs",
+              "RelativeToolTip": "Car_Rental\\Services\\EmailService.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAQwBgAAABQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-27T18:44:29.575Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BookingController.cs",
+              "DocumentMoniker": "D:\\Projects_C#\\Car_Rental\\Car_Rental\\Controllers\\BookingController.cs",
+              "RelativeDocumentMoniker": "Car_Rental\\Controllers\\BookingController.cs",
+              "ToolTip": "D:\\Projects_C#\\Car_Rental\\Car_Rental\\Controllers\\BookingController.cs",
+              "RelativeToolTip": "Car_Rental\\Controllers\\BookingController.cs",
+              "ViewState": "AgIAAMQAAAAAAAAAAADwv6cAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-27T17:47:37.548Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
