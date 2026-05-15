@@ -11,7 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add DB
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add Identity
 builder.Services
